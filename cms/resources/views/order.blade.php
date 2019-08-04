@@ -18,7 +18,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h1 class="page-heading">
-                List {{ $type ? $type : 'All'}} Order <a href="{{ url('export/'.$type) }}"  class="btn btn-dark">Export</a>
+                List {{ $type ? $type : 'All'}} Order <a href="{{ url('/orders/export/'.$type) }}"  class="btn btn-dark">Export</a>
 
                 {{-- <a href="{{ url('order/export') }}" class="btn btn-success push-5-l"><i class="fa fa-plus"></i> Export Tukang</a> --}}
             </h1>

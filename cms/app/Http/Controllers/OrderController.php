@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Orders;
 use Carbon\Carbon;
+use Excel;
 
 // use Excel;
 
@@ -57,4 +58,73 @@ class OrderController extends Controller
     	return view('order-form', $data);
 
     }
+
+    public function doReportOrder(Request $request, $type = null, $format='xls')
+    {
+        $this->type = $type;
+        ini_set('memory_limit','256M');
+        Excel::create('E-Tekang - Report Order '. date('Y-m-d Hi'), function($excel) {
+
+            $excel->sheet('Sheet1', function($sheet) {
+                $row = 1; // baris pertama
+                $sheet->row($row, array(
+                    'No', 
+                    'Nomor Order', 
+                    'ID Tukang',
+                    'ID Customer',
+                    'Email', 
+                    'Name',  
+                    'Price', 
+                    'total'
+                )); 
+                $sheet->row($row, function($row) {
+                    $row->setBackground('#fff600');
+                });
+
+                $row++;
+            
+                // $orders = Order::whereBetween('created_at', [
+                //     Carbon::createFromTimestamp(strtotime($request->input('started_at')))->startOfDay(), 
+                //     Carbon::createFromTimestamp(strtotime($request->input('ended_at')))->endOfDay()
+                // ]);
+
+                if ($this->type) {
+                    if ($type == 'Pending') {
+                        $status = 0;
+                    }elseif ($type == 'Accepted') {
+                        $status = 1;
+                    }elseif ($type == 'Completed') {
+                        $status = 2;
+                    }elseif ($type == 'Cancelled') {
+                        $status = 3;
+                    }
+                    
+                    $orders = Orders::where('status', $status)->get();
+                }else{
+                    $orders = Orders::get();
+                }
+
+                foreach ($orders as $value) 
+                {
+                    $sheet->row($row, array(
+                            $row-1, // No 
+                            $value->order_code, // ID
+                            $value->tukang_id, // Email
+                            $value->customer_id, // Email
+                            $value->email, // Name
+                            $value->name, // Name
+                            $value->price, // Item Value
+                            $value->total, // Item Value
+                           
+                        ));
+                        $row++;                    
+
+                }
+
+            });
+
+        })
+        ->download($format);
+
+    }  
 }

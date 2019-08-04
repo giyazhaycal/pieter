@@ -21,4 +21,5 @@ Route::get('/tukang/datatable', 'TukangController@datatable');
 
 Route::get('orders/datatable/{type?}', 'OrderController@getDatatable');
 Route::get('order/form/{id}', 'OrderController@showOrder');
+Route::get('orders/export/{type?}', 'OrderController@doReportOrder');
 Route::get('orders/{type?}', 'OrderController@getOrder');
