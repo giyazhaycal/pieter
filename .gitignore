@@ -1,0 +1,7 @@
+#Git
+!.gitkeep
+
+#OSX
+.DS_Store
+.idea
+.sass-cache
