@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 Agu 2019 pada 17.35
+-- Generation Time: 20 Agu 2019 pada 06.56
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.0.23
 
@@ -70,7 +70,7 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `name`, `jenis_kelamin`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'piet', 'Male', 'imanpiet@mail.com', '$2y$10$odjQHuhcOZh8obGPLl5ItOIMBBWp0ch1rIwM3oW5cIcl9xT9pkx8m', NULL, '2019-06-03 21:05:39', '2019-06-03 21:05:39'),
 (2, 'haycal', 'Male', 'haycal@gmail.com', '$2y$10$/2hGBFmfGz4ONOHett3lP.mU4LjK/AVPJMTKrnIjPACmqYyej5xuy', '9fNvrgxUJmWcjB7IBuTJimufZFxg8b7dVbqATmyDbADmKQjBXyFR1eB7CQxW', '2019-07-28 22:05:06', '2019-07-28 22:05:06'),
-(3, 'Heinrich Himler', 'Male', 'hei@mail.com', '$2y$10$lwV/GjWixBrr27McMoMDmOThzBt2Ut3a8EzqsR4OlV9s4q.29fL5K', 'XAAsjnTYzfBVvCByZO2zJqIMZmeivJonNjExn7DP8wHGcxHjNR6olvtDikcZ', '2019-07-28 23:27:59', '2019-07-28 23:27:59'),
+(3, 'Heinrich Himler', 'Male', 'hei@mail.com', '$2y$10$lwV/GjWixBrr27McMoMDmOThzBt2Ut3a8EzqsR4OlV9s4q.29fL5K', 'l4fyGRKhe6ObDvNEqP7I9OefwOHYHXuEZFYm6OoT9jHESMkO9nPFeyDtETnA', '2019-07-28 23:27:59', '2019-07-28 23:27:59'),
 (5, 'test', 'Male', 'cal@mail.com', '$2y$10$9KwhB0KxsrLnfpH9xTnbM.S9GYCipC92gUpoAohkyD8Rtk2uv2V3m', NULL, '2019-07-28 23:34:27', '2019-07-28 23:34:27'),
 (6, 'haycal giyaz', 'Male', 'giyazhaycal@gmail.com', '$2y$10$u5rVdbyVr9cV/hr2//1kd.QqCCDofFlJEY3VSlbZFnBGodafTYGpC', 'KBrSbuCHnYU1EnPccmyAN6ITnRsfDFqkqUykZLug7PupKzohNzIcQg4wFwt1', '2019-07-29 05:26:29', '2019-07-29 05:26:29');
 
@@ -6403,7 +6403,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_code`, `tukang_id`, `customer_id`, `email`, `name`, `job_desc`, `price`, `total`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'ET201908031', 4, 3, 'haycal@mineral.co.id', 'haycal giyaz', 'sdfsfs', 100000, 100000, 1, '2019-08-03 16:45:08', '2019-08-03 09:45:08'),
+(2, 'ET201908031', 4, 3, 'haycal@mineral.co.id', 'haycal giyaz', 'sdfsfs', 100000, 100000, 2, '2019-08-10 16:49:15', '2019-08-10 09:49:15'),
 (3, 'ET201908032', 4, 3, 'haycal@mineral.co.id', 'haycal giyaz', 'asdasdasdsa', 100000, 200000, 0, '2019-08-03 16:45:01', '2019-08-03 08:07:21');
 
 -- --------------------------------------------------------
@@ -6524,6 +6524,7 @@ CREATE TABLE `users` (
 CREATE TABLE `users_tukang` (
   `tukang_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -6535,9 +6536,12 @@ CREATE TABLE `users_tukang` (
   `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price_per_hour` int(11) DEFAULT NULL,
   `price_per_day` int(11) DEFAULT NULL,
+  `img_selfie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img_ktp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_complete` int(11) DEFAULT NULL,
   `is_active` int(11) DEFAULT NULL,
   `is_operate` int(11) DEFAULT NULL,
+  `message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -6546,12 +6550,15 @@ CREATE TABLE `users_tukang` (
 -- Dumping data untuk tabel `users_tukang`
 --
 
-INSERT INTO `users_tukang` (`tukang_id`, `name`, `email`, `password`, `remember_token`, `last_name`, `address`, `dob`, `province`, `city`, `district`, `price_per_hour`, `price_per_day`, `is_complete`, `is_active`, `is_operate`, `created_at`, `updated_at`) VALUES
-(1, 'sapiri', 'sap@mail.com', '$2y$10$HvVDaeS7OzYdPf34pIvmY.9XboK0l8n9jMpqfBYVYtQLSVtzxq8tW', 'flpGaRAHcAoFaxW3zqp0uiPxPJ03fHzvUwL1wbXchYHewa7g3QM2MvAaNDTe', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-03 21:10:56', '2019-06-03 21:10:56'),
-(2, 'haycal giyaz', 'haycal@mineral.co.id', '$2y$10$2yYrlpWM8QMIfoII6fm63OIkAlEzdTD13CL/58omN/CFFTAnJbrZK', 'R5VAmOHdS9DdK2BnJcY2yTQ8NqaNmf3zuBKyteFuOgVb9gcVsVtnzZrdChd7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, '2019-06-23 06:25:40', '2019-06-23 06:25:40'),
-(3, 'haycal giyaz', 'giyazhaycal@gmail.com', '$2y$10$toBvyQkhiUAxPlZco39tpeMsvTkH1XSVvLht17hBFZNpOTVJ/PJqS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, '2019-06-23 06:26:32', '2019-06-23 06:26:32'),
-(4, 'arif', 'arief@gmail.com', '$2y$10$5VzAejMKOXjykL1sWgRiXOIMlqJb9Elx1FAdzMFCtUw0tBnyu7ZSW', 'JF5f6k35OKWJyJ00OZeA7gVLJIgBhALQLIEWgxDfPxH7f7g96pr6PEKhTXXu', 'ahmad', NULL, '1995-01-01', '36', NULL, NULL, 50000, 100000, 1, 1, 1, '2019-07-17 08:30:50', '2019-07-28 22:18:26'),
-(6, 'pipipipi', 'iweieru@gmail.com', '$2y$10$Tf7ZZZs9HpY00ZbnVdpUEu8kble/tQCHab2eCSDr8RyKE7LRPTWMu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, '2019-07-29 05:31:09', '2019-07-29 05:31:09');
+INSERT INTO `users_tukang` (`tukang_id`, `name`, `alamat`, `email`, `password`, `remember_token`, `last_name`, `address`, `dob`, `province`, `city`, `district`, `price_per_hour`, `price_per_day`, `img_selfie`, `img_ktp`, `is_complete`, `is_active`, `is_operate`, `message`, `created_at`, `updated_at`) VALUES
+(1, 'sapiri', NULL, 'sap@mail.com', '$2y$10$HvVDaeS7OzYdPf34pIvmY.9XboK0l8n9jMpqfBYVYtQLSVtzxq8tW', 'flpGaRAHcAoFaxW3zqp0uiPxPJ03fHzvUwL1wbXchYHewa7g3QM2MvAaNDTe', NULL, NULL, NULL, '13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-03 21:10:56', '2019-06-03 21:10:56'),
+(2, 'haycal giyaz', NULL, 'haycal@mineral.co.id', '$2y$10$2yYrlpWM8QMIfoII6fm63OIkAlEzdTD13CL/58omN/CFFTAnJbrZK', 'R5VAmOHdS9DdK2BnJcY2yTQ8NqaNmf3zuBKyteFuOgVb9gcVsVtnzZrdChd7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 'Data tidak lengkap', '2019-06-23 06:25:40', '2019-08-17 04:32:51'),
+(3, 'haycal giyaz', NULL, 'giyazhaycal@gmail.com', '$2y$10$toBvyQkhiUAxPlZco39tpeMsvTkH1XSVvLht17hBFZNpOTVJ/PJqS', NULL, NULL, NULL, NULL, '13', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2019-06-23 06:26:32', '2019-06-23 06:26:32'),
+(4, 'arif', NULL, 'arief@gmail.com', '$2y$10$5VzAejMKOXjykL1sWgRiXOIMlqJb9Elx1FAdzMFCtUw0tBnyu7ZSW', 'JF5f6k35OKWJyJ00OZeA7gVLJIgBhALQLIEWgxDfPxH7f7g96pr6PEKhTXXu', 'ahmad', NULL, '1995-01-01', '36', NULL, NULL, 50000, 100000, NULL, NULL, 1, 1, 1, NULL, '2019-07-17 08:30:50', '2019-07-28 22:18:26'),
+(6, 'pipipipi', NULL, 'iweieru@gmail.com', '$2y$10$Tf7ZZZs9HpY00ZbnVdpUEu8kble/tQCHab2eCSDr8RyKE7LRPTWMu', NULL, NULL, NULL, NULL, '13', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2019-07-29 05:31:09', '2019-07-29 05:31:09'),
+(7, 'pieterzalukhu', NULL, 'zalukhu@gmail.com', '$2y$10$HNYIcaTWH4jAgI6yFyu9/O08JsMiuz3429452qETTvtEEBBeOK3HO', NULL, NULL, NULL, NULL, '13', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2019-08-06 00:07:24', '2019-08-06 00:07:24'),
+(8, 'uyi', NULL, 'uyi@gmail.com', '$2y$10$29BIiPe4sExtgdjrX0js4ulPCuJMuddoaU2ZfL2yUQ4jsT6qAqZa.', 'tFEY7Mf9ud0Z0adG3BHvIbdvjoEg6o2CpEd7L8kBex0IXtjrtY0ynRkrrXLX', NULL, NULL, NULL, '13', NULL, NULL, 50000, 500000, NULL, NULL, 0, 0, 0, NULL, '2019-08-06 00:34:30', '2019-08-06 00:38:47'),
+(9, 'PIETER IMAN SARO', 'tangerang', 'tukang@pieter.com', '$2y$10$dfen/7/a28T.nFS6bXYTTeXSen86rFPxJxDjdbsm/y5/paNnTxhdm', NULL, NULL, NULL, '2010-01-31', '16', NULL, NULL, NULL, 100000, 'logo-unpam.jpg', 'tayo.PNG', 0, 0, NULL, 'Nama tidak sesuai KTP', '2019-08-17 02:29:49', '2019-08-17 04:21:18');
 
 --
 -- Indexes for dumped tables
@@ -6689,7 +6696,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_tukang`
 --
 ALTER TABLE `users_tukang`
-  MODIFY `tukang_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `tukang_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

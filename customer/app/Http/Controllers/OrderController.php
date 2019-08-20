@@ -101,5 +101,14 @@ class OrderController extends Controller
         return view('success', $data);
     }
 
+    public function setOrder($order_id = null)
+    {
+        $order =  Orders::where('order_id', $order_id)->first();
+        $order->status = 2;
+        $order->save();
+
+        return redirect('account/history');
+    }
+
 }
 

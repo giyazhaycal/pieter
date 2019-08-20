@@ -48,6 +48,46 @@
                 </div>
                 <!-- END Material Register -->
             </div>
+                        <div class="col-md-6">
+                <div class="block block-themed">
+                    <div class="block-content">
+                        <div class="form-horizontal push-10-t push-10">
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <label>Riwayat Order</label>
+                                    @if($customer->orders())
+                                    <table class="table table-default">
+                                        <thead>
+                                            <th>#</th>
+                                            <th>email cust</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Tgl</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($customer->orders() as $row)
+                                            <tr>
+                                                <td>{{ $row->order_code}}</td>
+                                                <td>{{ $row->email}}</td>
+                                                <td>{{ $row->total}}</td>
+                                                <td>{!! $row->getStatus() !!}</td>
+                                                <td>{{ $row->created_at }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    @else
+                                    <p>Belum ada order</p>
+                                    @endif
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- <div class="col-md-6">
                 <!-- Material Register -->
                 <div class="block block-themed">

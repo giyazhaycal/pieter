@@ -1,21 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.app_auth')
+
+@section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+<style type="text/css">
+    body{
+    }
+    .control-label{
+        color: white
+    }
+</style>
+@endsection
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+        <div class="col-md-6 col-md-offset-6" style="margin-top: 130px">
+            <div class="panel panel-default content">
+                <div class="panel-heading">Register Tukang</div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
+                            <label for="name" class="col-md-4 control-label">Nama</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <small style="color: white"><i>Nama sesuai KTP</i></small>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">

@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-sm-12 mg-bt">
                         <form>
-                            <div class="col-sm-3 pd-no">
+                            <div class="col-sm-6 pd-no">
                                 <select name="provinsi" class="form-control" id="provinsi" required>
                                     <option value="">Provinsi</option>
                                     @foreach($provinsi as $key => $row)
@@ -39,7 +39,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-3 pd-no">
+                            {{-- <div class="col-sm-3 pd-no">
                                 <select name="kota" class="form-control" id="kota">
                                     <option value="">Pilih Kota</option>
                                     <option>Tangerang</option>
@@ -50,7 +50,7 @@
                                     <option value="">Pilih Kecamatan</option>
                                     <option>Tangerang</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-3" style="padding: 0px">
                                 <button type="submit" class="btn btn-primary btn-block">Cari</button>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="col-sm-9">
                                 <h3 style="font-size: 3rem; margin:0px; padding: 0px">{{ strtoupper($row->name) }}</h3>
                                 <p style="margin: 0px"><i>Rp {{ number_format($row->price_per_day) }} / Day</i></p>
-                                <p>{{ getProvince($row->province)->nama }}</p>
+                                <p>{{ helpProvince($row->province)->nama }}</p>
                                 <p><a href="{{ url('order/'.$row->tukang_id)}}" class="btn-link">Order</a></p>
                             </div>
                         </li>

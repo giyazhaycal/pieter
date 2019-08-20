@@ -32,56 +32,44 @@ class User extends Authenticatable
 
     public function getProvince()
     {
-        $ch = curl_init(); 
-
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
-
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-
-        $output = curl_exec($ch); 
-        $output = json_decode($output);
-        
-        // close curl resource to free up system resources 
-        curl_close($ch); 
-        return $output->semuaprovinsi;
+        $prov = Provinsi::get();
+        return $prov;
     }
 
-    public function getCity()
-    {
-        $ch = curl_init(); 
+    // public function getCity()
+    // {
+    //     $ch = curl_init(); 
 
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
+    //     // set url 
+    //     curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
 
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    //     //return the transfer as a string 
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-        $output = curl_exec($ch); 
-        $output = json_decode($output);
+    //     $output = curl_exec($ch); 
+    //     $output = json_decode($output);
         
-        // close curl resource to free up system resources 
-        curl_close($ch); 
-        return $output->semuaprovinsi;
-    }
+    //     // close curl resource to free up system resources 
+    //     curl_close($ch); 
+    //     return $output->semuaprovinsi;
+    // }
 
-    public function getDistrict()
-    {
-        $ch = curl_init(); 
+    // public function getDistrict()
+    // {
+    //     $ch = curl_init(); 
 
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
+    //     // set url 
+    //     curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
 
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+    //     //return the transfer as a string 
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-        $output = curl_exec($ch); 
-        $output = json_decode($output);
+    //     $output = curl_exec($ch); 
+    //     $output = json_decode($output);
         
-        // close curl resource to free up system resources 
-        curl_close($ch); 
-        return $output->semuaprovinsi;
-    }
+    //     // close curl resource to free up system resources 
+    //     curl_close($ch); 
+    //     return $output->semuaprovinsi;
+    // }
 
 }

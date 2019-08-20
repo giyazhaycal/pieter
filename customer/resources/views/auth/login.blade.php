@@ -1,13 +1,25 @@
 @extends('layouts.app')
 
+@section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+<style type="text/css">
+    body{
+        background-image: url({{asset('img/p4ict.jpg')}});
+        background-size: cover;
+    }
+    .control-label{
+        color: white
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+        <div class="col-md-6 col-md-offset-6" style="margin-top: 130px">
+            <div class="panel panel-default content">
                 <div class="panel-heading">Login</div>
-
-                <div class="panel-body">
+                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
@@ -66,4 +78,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection

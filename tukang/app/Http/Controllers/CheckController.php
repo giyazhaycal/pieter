@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 use \App\User;
+use \App\Provinsi;
+use Image;
 
 class CheckController extends Controller
 {
@@ -27,43 +31,91 @@ class CheckController extends Controller
     public function completeData()
     {
         
-
-        $data['province'] = $this->getProvince()->semuaprovinsi;
-        // dd($data['province']);
+        $data['province'] = Provinsi::get();
 
         return view('complete-first', $data);
     }
 
-    public function getProvince()
-    {
-        $ch = curl_init(); 
-
-        // set url 
-        curl_setopt($ch, CURLOPT_URL, "http://dev.farizdotid.com/api/daerahindonesia/provinsi"); 
-
-        //return the transfer as a string 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-
-        $output = curl_exec($ch); 
-        $output = json_decode($output);
-
-        // close curl resource to free up system resources 
-        curl_close($ch); 
-        return $output;
-    }
-
     public function doUpdate(Request $request)
     {
+
         $user = User::where('tukang_id', $request->tukang_id)->first();
-        $user->last_name = $request->last_name;
+        $user->name = $request->name;
         $user->province = $request->provinsi;
         $user->dob = $request->dob;
+        $user->alamat = $request->alamat;
         $user->price_per_day = $request->price_per_day;
         $user->price_per_hour = $request->price_per_hour;
         $user->is_complete = 1;
         $user->save();
 
-        return redirect('chek');
+        if($request->hasFile('img_selfie'))
+        {
+            $storage = Storage::disk('public');
+            $path = 'user/'.$user->id.'/';
+
+            if(!empty($user->img_selfie))
+            {
+                $storage->delete($path.$user->img_selfie);
+            }
+            
+            $file = $request->file('img_selfie');
+      
+            $fileName = $file->getClientOriginalName();
+            $image = file_get_contents($file);
+            $ext = $file->getClientMimeType();
+
+            if (!str_contains($ext, ['gif', 'video'])) // kalo selain gif, resize imagenya
+            {                
+                $img = Image::make($image);
+                // $img->fit(600, 600);
+                $img = $img->stream()->__toString();
+                $storage->put($path.$fileName, $img);
+            } 
+            else
+            {
+                $storage->put($path.$fileName, $image);
+            }
+            
+            $user->img_selfie = $fileName;
+            $user->save();
+        }
+
+        if($request->hasFile('img_ktp'))
+        {
+            $storage = Storage::disk('public');
+            $path = 'user/'.$user->id.'/';
+
+            if(!empty($user->img_ktp))
+            {
+                $storage->delete($path.$user->img_ktp);
+            }
+            
+            $file = $request->file('img_ktp');
+      
+            $fileName = $file->getClientOriginalName();
+            $image = file_get_contents($file);
+            $ext = $file->getClientMimeType();
+
+            if (!str_contains($ext, ['gif', 'video'])) // kalo selain gif, resize imagenya
+            {                
+                $img = Image::make($image);
+                // $img->fit(600, 600);
+                $img = $img->stream()->__toString();
+                $storage->put($path.$fileName, $img);
+            } 
+            else
+            {
+                $storage->put($path.$fileName, $image);
+            }
+            
+            $user->img_ktp = $fileName;
+            $user->save();
+        }
+        dd('stop');
+
+
+        return redirect('check');
 
     }
 }

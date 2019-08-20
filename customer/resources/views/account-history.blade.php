@@ -54,7 +54,7 @@
                                 <td>{{ $row->order_code }}</td>
                                 <td>{{ $row->tukang->name }}</td>
                                 <td>Rp {{ number_format($row->total ) }}</td>
-                                <td>{{ $row->getStatus() }}</td>
+                                <td>{!! $row->getStatus($row->order_id) !!}</td>
                             </tr>
                             @endforeach
                         </tbody>

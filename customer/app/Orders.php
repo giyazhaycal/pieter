@@ -14,19 +14,19 @@ class Orders extends Model
         return $this->hasOne('App\Tukang','tukang_id','tukang_id');
     }
 
-    public function getStatus()
+    public function getStatus($order_id = null)
     {
     	$status = $this->status;
 
-    	if ($status == 1 ) {
+    	if ($status == 0 ) {
     		return 'Menunggu';
+    	}elseif ($status == 1 ) {
+    		return 'Accepted <a href="'.url('/done/').'/'.$order_id.'" class="btn btn-warning">Done</a>';
     	}elseif ($status == 2 ) {
-    		return 'Accepted';
-    	}elseif ($status == 3 ) {
     		return 'Done';
-    	}elseif ($status == 4) {
+    	}elseif ($status == 3) {
     		return 'Dibatalkan';
-    	}elseif ($status == 5){
+    	}elseif ($status == 4){
     		return 'Tukang tidak merespon';
     	}
     }

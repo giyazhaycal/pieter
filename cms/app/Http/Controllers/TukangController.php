@@ -21,7 +21,7 @@ class TukangController extends Controller
 
     public function datatable(Request $request)
     {
-        $tukang = Tukang::query();
+        $tukang = Tukang::orderBy('tukang_id');
         return DataTables::eloquent($tukang)
         ->editColumn('is_complete', function($row) {
             return $row->is_complete ? '<span class="label label-success">Lengkap</span>' : '<span class="label label-warning">Belum Lengkap</span>';
@@ -58,8 +58,11 @@ class TukangController extends Controller
         $tukang = Tukang::where('tukang_id', $request->tukang_id)->first();
         if ($request->has('active')) {
             $tukang->is_active = 1; 
-        }else{
-            $tukang->is_active = 2; 
+            $tukang->message = null; 
+        }elseif($request->has('recheck')) {
+            # code...
+            $tukang->is_complete = 0; 
+            $tukang->message = $request->message; 
         }
 
         $tukang->save();
